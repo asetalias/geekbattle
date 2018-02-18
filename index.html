@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ GeekBattle }} | ALiAS</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <meta name="description" content="{{ GeekBattle }} consists of a series of rounds including competitive programming, Blind Coding, Debugging, and more to win exciting prizes.">
+        <meta name="keywords" content="competitive programming, competitions, amity youth fest, ayf, alias, linux, blind coding, programming competition" />
+
+        <link rel="shortcut icon" href="static/images/alias.png" />
+
+        <link href="static/css/fontawesome-all.min.css" rel="stylesheet" />
+
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Passion+One:700|Playfair+Display+SC:700|VT323');
+            html, body{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            body{
+                min-height: 400px;
+                min-width: 400px;
+                background-color: #1c283e;
+            }
+            #loader{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: #1c283e;
+                z-index: 9999;
+            }
+            #loader .absolute-center{
+                text-align: center;
+                width: 100%;
+                height: 80px;
+                color: #ffffee;
+            }
+            #loader h1{
+                font-family: 'Passion One', sans-serif;
+                font-size: 50px;
+            }
+            #main{
+                min-height: 550px;
+                min-width: 400px;
+                height: 100%;
+                width: 100%;
+                position: relative;
+            }
+            #main header{
+                height: 80px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding-top: 10px;
+            }
+            #amity-logo{
+                position: absolute;
+                width: 50px;
+                height: auto;
+                left: 10px;
+            }
+            #ayf-logo{
+                position: absolute;
+                width: 70px;
+                height: auto;
+                right: 10px;
+            }
+            #alias-logo{
+                position: absolute;
+                width: 70px;
+                height: auto;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+            #title-container{
+                height: 300px;
+                width: 300px;
+                border-radius: 50%;
+                /*border: 3px dashed #f15e64;*/
+                position: absolute;
+                top:0;
+                left: 0;
+                bottom: 150px;
+                right: 0;
+                margin: auto;
+            }
+            #title-container:before{
+                height: 300px;
+                width: 300px;
+                position: absolute;
+                content: '';
+                border: 3px solid #f15e64;
+                border-radius: 50%;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: auto;
+                animation: rotation 40s infinite linear;
+                clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+                z-index: -1;
+            }
+            #title-container:after{
+                height: 250px;
+                width: 250px;
+                position: absolute;
+                content: '';
+                border: 10px dashed #f5a411;
+                border-radius: 50%;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: auto;
+                animation: rotation-reverse 30s infinite linear;
+                clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+                z-index: -1;
+
+            }
+            #title-container .control-prev{
+                position: absolute;
+                left:-2em;
+                top:0;
+                bottom: 0;
+                margin: auto;
+                color: #fefeff;
+                width: 1em;
+                height: 1em;
+            }
+            #title-container .control-next{
+                position: absolute;
+                right: -2em;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                color: #fefeff;
+                width: 1em;
+                height: 1em;
+            }
+            .absolute-center{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+            }
+            .event-line-1, .event-line-2{
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+            .event-line-1{
+                font-family: 'Passion One', cursive;
+                font-size: 2.5em;
+                color: #fefeff;
+            }
+            .event-line-2{
+                font-family: 'Playfair Display SC', serif;
+                font-size: 2em;
+                transform: translateY(-0.7em);
+                color: #fefeff;
+            }
+            .eventTitle{
+                height: 8em;
+                transition: 0.5s all;
+                width:250px;
+                z-index: 9;
+                margin: auto;
+                left: 0; right: 0;
+                top: -125px;
+                bottom: -125px;
+                position: absolute;
+            }
+            .eventTitle.layout-top{
+                bottom: -25px;
+            }
+            .eventTitle.layout-top #mainEventLine1{
+                font-size: 30px;
+            }
+            .eventTitle.layout-top #mainEventLine2{
+                font-size: 16px;
+            }
+            #mainEventLine1{
+                font-size: 55px;
+                transition: 0.5s all;
+                color: #fefeff;
+            }
+            #mainEventLine2{
+                font-size: 30px;
+                transition: 0.5s all;
+                color: #fefeff;
+            }
+            #event-timings{
+                height: 45px;
+                bottom: 40px;
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                color: #ffeffe;
+                font-family: 'Playfair Display SC', serif;
+                font-size: 2em;
+            }
+            #event-date{
+                font-size: 22px;
+                transition: 0.5s all;
+            }
+            #event-time{
+                font-size: 18px;
+                transition: 0.5s all;
+            }
+            #event-timings.layout-bottom #event-date{
+                font-size: 18px;
+            }
+            #event-timings.layout-bottom #event-time{
+                font-size: 13px;
+            }
+            .slides{
+                display: none;
+                height: 6em;
+                text-align: center;
+                overflow: hidden;
+            }
+            .slides.active{
+                display: block;
+            }
+            .slides .slide{
+                transform: scale(1.5);
+                transition: 0.5s all;
+                opacity: 0;
+                position: absolute;
+                height: 100%;
+                width: 250px;         
+            }
+            .slides .slide.prev{
+                transform: scale(0.4);
+                opacity: 0;
+            }
+            .slides.active .slide.active{
+                display: block;
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                
+            }
+            .distortion-effect{
+                position: relative;
+            }
+            .distortion-effect::after,
+            .distortion-effect::before{
+                content: attr(data-text);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            .distortion-effect::before{
+                left: 2px;
+                text-shadow: -1px 0 red;
+                clip: rect(0px, 900px, 0, 0);
+                animation: distortion-1 2s infinite cubic-bezier(1, 3.67, 0, -1.13) alternate-reverse;
+            }
+            .distortion-effect::after{
+                left: -1px;
+                text-shadow: 1px 0 blue;
+                clip: rect(0px, 900px, 0, 0);
+                animation: distortion-2 6s infinite cubic-bezier(0.64, 1.82, 0.06, -1.13) alternate-reverse;
+                animation-delay: 0.5s;
+            }
+            .event-details{
+                display: none;
+            }
+            #event-typer{
+                width: 80%;
+                height: 200px;
+                background-color: #000;
+                color:greenyellow;
+                border-radius: 2px;
+                margin: auto;
+                position: absolute;
+                bottom: 0;
+                left: 0; right: 0;
+                box-shadow: 1px 1px 20px #000;
+                font-family: 'VT323', monospace;
+                font-size: 22px;
+                padding: 5px;
+                overflow: hidden;
+            }
+            #event-typer:hover{
+                overflow: auto;
+            }
+            #typed{
+                width: 100%;
+                display: inline;
+                position: relative;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                height: auto;
+                word-wrap: break-word;
+            }
+            #typed:hover{
+                overflow-y: auto;
+            }
+            #event-typer .typed-cursor{
+                animation: blink 0.3s linear infinite alternate-reverse;
+            }
+            @keyframes blink{
+                from{
+                    opacity: 0;
+                }
+                to{
+                    opacity: 1;
+                }
+            }
+            @keyframes rotation {
+                from{
+                    transform: rotate(0deg);
+                }
+                to{
+                    transform: rotate(360deg);
+                }
+            }
+            @keyframes rotation-reverse {
+                from{
+                    transform: rotate(360deg);
+                }
+                to{
+                    transform: rotate(0deg);
+                }
+            }
+            /** Randomly generated values, edit to create better distortion effect **/
+            @keyframes distortion-1{
+                0% {
+                    clip: rect(58px, 9999px, 3px, 0);
+                }
+                5% {
+                    clip: rect(15px, 9999px, 9px, 0);
+                }
+                10% {
+                    clip: rect(100px, 9999px, 44px, 0);
+                }
+                15% {
+                    clip: rect(25px, 9999px, 40px, 0);
+                }
+                20% {
+                    clip: rect(94px, 9999px, 14px, 0);
+                }
+                25% {
+                    clip: rect(33px, 9999px, 63px, 0);
+                }
+                30% {
+                    clip: rect(85px, 9999px, 55px, 0);
+                }
+                35% {
+                    clip: rect(5px, 9999px, 96px, 0);
+                }
+                40% {
+                    clip: rect(76px, 9999px, 37px, 0);
+                }
+                45% {
+                    clip: rect(88px, 9999px, 44px, 0);
+                }
+                50% {
+                    clip: rect(100px, 9999px, 88px, 0);
+                }
+                55% {
+                    clip: rect(100px, 9999px, 12px, 0);
+                }
+                60% {
+                    clip: rect(68px, 9999px, 23px, 0);
+                }
+                65% {
+                    clip: rect(99px, 9999px, 18px, 0);
+                }
+                70% {
+                    clip: rect(43px, 9999px, 81px, 0);
+                }
+                75% {
+                    clip: rect(50px, 9999px, 57px, 0);
+                }
+                80% {
+                    clip: rect(2px, 9999px, 72px, 0);
+                }
+                85% {
+                    clip: rect(25px, 9999px, 79px, 0);
+                }
+                90% {
+                    clip: rect(69px, 9999px, 75px, 0);
+                }
+                95% {
+                    clip: rect(65px, 9999px, 16px, 0);
+                }
+                100% {
+                    clip: rect(93px, 9999px, 77px, 0);
+                }
+            }
+            @keyframes distortion-2{
+                0% {
+                    clip: rect(92px, 9999px, 44px, 0);
+                  }
+                5% {
+                    clip: rect(27px, 9999px, 19px, 0);
+                }
+                10% {
+                    clip: rect(27px, 9999px, 93px, 0);
+                }
+                15% {
+                    clip: rect(45px, 9999px, 42px, 0);
+                }
+                20% {
+                    clip: rect(21px, 9999px, 28px, 0);
+                }
+                25% {
+                    clip: rect(55px, 9999px, 87px, 0);
+                }
+                30% {
+                    clip: rect(88px, 9999px, 30px, 0);
+                }
+                35% {
+                    clip: rect(10px, 9999px, 44px, 0);
+                }
+                40% {
+                    clip: rect(66px, 9999px, 85px, 0);
+                }
+                45% {
+                    clip: rect(63px, 9999px, 16px, 0);
+                }
+                50% {
+                    clip: rect(60px, 9999px, 26px, 0);
+                }
+                55% {
+                    clip: rect(27px, 9999px, 90px, 0);
+                }
+                60% {
+                    clip: rect(72px, 9999px, 21px, 0);
+                }
+                65% {
+                    clip: rect(72px, 9999px, 37px, 0);
+                }
+                70% {
+                    clip: rect(84px, 9999px, 54px, 0);
+                }
+                75% {
+                    clip: rect(26px, 9999px, 19px, 0);
+                }
+                80% {
+                    clip: rect(25px, 9999px, 49px, 0);
+                }
+                85% {
+                    clip: rect(96px, 9999px, 29px, 0);
+                }
+                90% {
+                    clip: rect(61px, 9999px, 38px, 0);
+                }
+                95% {
+                    clip: rect(45px, 9999px, 16px, 0);
+                }
+                100% {
+                    clip: rect(77px, 9999px, 96px, 0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loader">
+            <div class="absolute-center">
+                <h1 class="distortion-effect" data-text="LOADING">LOADING</h1>
+            </div>
+        </div>
+        <section id="main">
+            <header>
+                <img id="amity-logo" src="static/images/amity.png" />
+                <img id="alias-logo" src="static/images/alias-square-light.png" />
+                <img id="ayf-logo" src="static/images/ayf.png" />
+            </header>
+            <div id="title-container">
+                <div class="border-half-top"></div>
+                <div class="border-half-bottom"></div>
+                <div class="eventTitle">
+                    <span class="event-line-1 distortion-effect" id="mainEventLine1" data-text="GEEK">GEEK</span>
+                    <span class="event-line-2 distortion-effect" id="mainEventLine2" data-text="BATTLE">BATTLE</span>
+                </div>
+                <div id="slide-content">
+                    <div class="slides absolute-center" data-activated="false">
+                        <div class="slide absolute-center" data-event-id="1">
+                            <span class="event-line-1 distortion-effect" data-text="Competitive">Competitive</span>
+                            <span class="event-line-2 distortion-effect" data-text="Programming">Programming</span>
+                        </div>
+                        <div class="slide absolute-center" data-event-id="2">
+                            <span class="event-line-1 distortion-effect" data-text="DE-">DE-</span>
+                            <span class="event-line-2 distortion-effect" data-text="Bugging">Bugging</span>
+                        </div>
+                        <div class="slide absolute-center" data-event-id="3">
+                            <span class="event-line-1 distortion-effect" data-text="Blind">Blind</span>
+                            <span class="event-line-2 distortion-effect" data-text="Coding">Coding</span>
+                        </div>
+                        <div class="slide absolute-center" data-event-id="4">
+                            <span class="event-line-1 distortion-effect" data-text="Computer">Computer</span>
+                            <span class="event-line-2 distortion-effect" data-text="Trivia">Trivia</span>
+                        </div>
+                        <div class="slide absolute-center" data-event-id="5">
+                            <span class="event-line-1 distortion-effect" data-text="Draw">Draw</span>
+                            <span class="event-line-2 distortion-effect" data-text="Breaker">Breaker</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="event-timings">
+                    <div id="event-date" class="distortion-effect" data-text="09 Feb 2018">09 Feb 2018</div>
+                    <div id="event-time" class="distortion-effect" data-text="10 AM - 04 PM">10 AM - 4 PM</div>
+                </div>
+                <a class="control-prev" href="#">
+                    <span class="fas fa-angle-double-left"></span>
+                </a>
+                <a class="control-next" href="#">
+                    <span class="fas fa-angle-double-right"></span>
+                </a>
+            </div>
+            <footer>
+                <div id="matrixContent">
+                    <div id="welcome-text" style="display:none">
+                        Welcome to {{ GEEKBATTLE }}, <br>{{ GeekBattle }} consists of a series of rounds including competitive programming, Blind Coding, Debugging, and more to win exciting prizes. <br> This Website is under development :)
+                    </div>
+                    <div class="event-details">
+                        <div id="event-details-1">
+                            Competitive Programming Description.
+                        </div>
+                        <div id="event-details-2">
+                            De-Bugging Long Text. This text is just used to test the overflow situation in this box. This is a really long text and you probably are just wasting your time reading this because the typing effect is cool and you are still reading this while I'm just testing how long text can this box handle, what happens with overflow auto and break word and other things and what happens on overflow but that doesn't matter to you, does it? Anyways, Have a nice day!
+                        </div>
+                        <div id="event-details-3">
+                            Blind Coding Description
+                        </div>
+                        <div id="event-details-4">
+                            Computer Trivia Description
+                        </div>
+                        <div id="event-details-5">
+                            Draw Breaker Round! It'll be a surprise.
+                        </div>
+                    </div>
+                </div>
+                <div id="event-typer">
+                    <span id="typed"></span>
+                </div>
+            </footer>
+        </section>
+        <footer>
+
+        </footer>
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/typed.min.js"></script>
+        <script src="https://www.youtube.com/iframe_api" async></script>
+        <script>
+            $(document).ready(function(){
+                $("#loader").fadeOut();
+                var welcomeText = '~<span class="fas fa-dollar-sign"></span> ' +$("#welcome-text").html();
+                var typer =  new Typed("#typed", {
+                        strings: [welcomeText],
+                        typeSpeed: 30,
+                        loop: false,
+                        cursorChar: '_'
+                });
+                var slides = $(".slides");
+                $(".control-next").click(function(e){
+                    e.preventDefault();
+                    var firstSlide = slides.find(".slide:first-child");
+                    if(slides.attr("data-activated") == "false"){
+                        slides.attr("data-activated", "true");
+                        slides.addClass("active");
+                        firstSlide.addClass("active");
+                        slides.find(".slide:last-child").addClass("prev");
+                    }else{
+                        var nextSlide;
+                        var currSlide = slides.find(".slide.active");
+                        var prevSlide = slides.find(".slide.prev");
+                        prevSlide.removeClass("prev");
+                        if(currSlide.is(":last-child")){
+                            nextSlide = firstSlide;
+                        }else{
+                            nextSlide = currSlide.next(".slide");
+                        }
+                        currSlide.addClass("prev");
+                        currSlide.removeClass("active");
+                        nextSlide.addClass("active");
+                    }
+                    if(typer != null){
+                        typer.destroy();
+                    }
+                    var eventid = slides.find(".slide.active").attr("data-event-id");
+                    var text = '~<span class="fas fa-dollar-sign"></span> '
+                    text += $("#event-details-"+eventid).html();
+                    typer = new Typed("#typed", {
+                        strings: [text],
+                        typeSpeed: 10,
+                        loop: false,
+                        cursorChar: '_'
+                    });
+                    $(".eventTitle").addClass("layout-top");
+                    $("#event-timings").addClass("layout-bottom");
+                });
+                $(".control-prev").click(function(e){
+                    e.preventDefault();
+                    var lastSlide = slides.find(".slide:last-child");
+                    if(slides.attr("data-activated") == "false"){
+                        return false;
+                    }else{
+                        var nextSlide;
+                        var prevSlide = slides.find(".slide.prev");
+                        var currSlide = slides.find(".slide.active");
+                        prevSlide.removeClass("prev");
+                        if(currSlide.is(":first-child")){
+                            nextSlide = lastSlide;
+                        }else{
+                            nextSlide = prevSlide;
+                        }
+                        currSlide.removeClass("active");
+                        nextSlide.addClass("active");
+                        nextSlide.prev(".slide").addClass("prev");
+                    }
+                    if(typer != null){
+                        typer.destroy();
+                    }
+                    var eventid = slides.find(".slide.active").attr("data-event-id");
+                    var text = '~<span class="fas fa-dollar-sign"></span> '
+                    text += $("#event-details-"+eventid).html();
+                    typer = new Typed("#typed", {
+                        strings: [text],
+                        typeSpeed: 10,
+                        loop: false,
+                        cursorChar: '_'
+                    });
+                    $(".eventTitle").addClass("layout-top");
+                    $("#event-timings").addClass("layout-bottom");
+                });
+            });
+        </script>
+    </body>
+</html>
