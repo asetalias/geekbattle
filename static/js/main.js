@@ -1,9 +1,9 @@
 $(document).ready(function(){
     /** Remove the Preloader */
-    setTimeout(function(){
+    $(window).on("load", function(){
         $("#loader").fadeOut();
         init();
-    }, 2000);
+    });
     function init(){
         showActiveSlide();
     }
