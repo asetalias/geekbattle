@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css?family=Passion+One:700|Playfair+Display+SC:700|VT323|Abel');
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+body{
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/** Utilities **/
+.absolute-center{
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+}
+.mx-auto{
+    left: 0; right: 0;
+    margin-left: auto; margin-right: auto;
+}
+.my-auto{
+    top: 0; bottom: 0;
+    margin-top: auto; margin-bottom: auto;
+}
+.no-style-link{
+    text-decoration: none;
+}
+/** Preloader Styles **/
+#loader{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #1c283e;
+    z-index: 9999;
+}
+#loader .absolute-center{
+    text-align: center;
+    width: 100%;
+    height: 80px;
+    color: #ffffee;
+}
+#loader h1{
+    font-family: 'Passion One', sans-serif;
+    font-size: 50px;
+}
+/** Container **/
+#main{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+/** Header **/
+#main header{
+    height: 100px;
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+#jetbrains-logo{
+    position: absolute;
+    width: 50px;
+    height: auto;
+    left: 20px;
+}
+#hackerearth-logo{
+    position: absolute;
+    width: 40px;
+    height: auto;
+    right: 20px;
+}
+#alias-logo{
+    position: absolute;
+    width: 70px;
+    height: auto;
+}
+/** Magic Box **/
+#title-container,
+#title-container::before{
+    height: 300px;
+    width: 300px;
+}
+#title-container{
+    border-radius: 50%;
+    position: relative;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#title-container::before,
+#title-container::after{
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+    z-index: -1;
+}
+#title-container::before{
+    border: 3px solid #f15e64;
+    animation: rotation 40s infinite linear;
+}
+#title-container::after{
+    height: 250px;
+    width: 250px;
+    border: 10px dashed #f5a411;
+    animation: rotation-reverse 30s infinite linear;
+}
+@media all and (max-width:768px){
+    #title-container,
+    #title-container::before{
+        height: 250px;
+        width: 250px;
+    }
+    #title-container::after{
+        height: 200px;
+        width: 200px;
+    }
+}
+#title-container .control-next,
+#title-container .control-prev{
+    position: absolute;
+    color: #fefeff;
+    width: 1em;
+    height: 1em;
+}
+#title-container .control-prev{
+    left:-2em;
+}
+#title-container .control-next{
+    right: -2em;
+}
+.slides{
+    height: 6em;
+    text-align: center;
+}
+.slides .slide{
+    transform: scale(1.5);
+    transition: 0.5s all;
+    opacity: 0;
+    position: absolute;
+    height: 100%;
+    width: 250px;
+    z-index: -1;         
+}
+.slides .slide.prev:not(.no-hide){
+    transform: scale(0.4);
+    opacity: 0;
+}
+.slides .slide.active{
+    display: block;
+    opacity: 1;
+    transform: translateX(0) scale(1);   
+    z-index: 1;
+}
+.slides .slide.no-hide{
+    display: block;
+    opacity: 1;
+    z-index: 1;
+}
+.event-line-1, 
+.event-line-2{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #fefeff;
+}
+.event-line-1{
+    font-family: 'Passion One', cursive;
+    font-size: 2.5em;
+}
+.event-line-2{
+    font-family: 'Playfair Display SC', serif;
+    font-size: 2em;
+    transform: translateY(-0.7em);
+}
+.eventTitle{
+    height: 80px;
+    transition: 0.5s all;
+    width:250px;
+}
+.eventTitle.layout-top{
+    bottom: 125px;
+}
+.eventTitle.layout-top #mainEventLine1{
+    font-size: 30px;
+}
+.eventTitle.layout-top #mainEventLine2{
+    font-size: 16px;
+}
+#mainEventLine1,
+#mainEventLine2{
+    transition: 0.5s all;
+    color: #fefeff;
+}
+#mainEventLine1{
+    font-size: 55px;
+}
+#mainEventLine2{
+    font-size: 30px;
+}
+#event-timings{
+    position: absolute;
+    width: 100%;
+    height: 55px;
+    bottom: 50px;
+    text-align: center;
+    color: #ffeffe;
+    font-family: 'Playfair Display SC', serif;
+    font-size: 2em;
+}
+#next-msg{
+    font-size: 11px;
+    font-family: 'Abel', sans-serif;
+}
+#event-date,
+#event-time{
+    transition: 0.5s all;
+}
+#event-date{
+    font-size: 22px;
+}
+#event-time{
+    font-size: 18px;
+}
+#event-timings.layout-bottom #event-date{
+    font-size: 18px;
+}
+#event-timings.layout-bottom #event-time{
+    font-size: 13px;
+}
+@media all and (max-width:768px){
+    .event-line-1{
+        font-size: 2em;
+    }
+    .event-line-2{
+        font-size: 1.5em;
+    }
+    .eventTitle.layout-top{
+        bottom: 100px;
+    }
+    .eventTitle.layout-top #mainEventLine1{
+        font-size: 17px;
+    }
+    .eventTitle.layout-top #mainEventLine2{
+        font-size: 12px;
+    }
+    .slides{
+        height: 80px;
+    }
+    #event-date{
+        font-size: 18px;
+    }
+    #event-time{
+        font-size: 15px;
+    }
+}
+/** Footer **/
+#main footer{
+    position: relative;
+}
+.event-details{
+    display: none;
+}
+#event-typer{
+    width: 80%;
+    min-height: 150px;
+    background-color: #000;
+    color:greenyellow;
+    box-shadow: 1px 1px 20px #000;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    padding: 5px;
+    border-radius: 2px;
+    transition: 0.5s all;
+}
+#primary_menu{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    padding: 10px;
+}
+#primary_menu>ul{
+    display: inline;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#primary_menu>ul>li{
+    display: inline-block;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: 0.5s all;
+    border-top: 2px solid greenyellow;
+    border-bottom: 2px solid greenyellow;
+}
+#primary_menu>ul>li:hover{
+    background-color: greenyellow;
+    color: #000;
+}
+#typed{
+    display: inline;
+    word-wrap: break-word;
+}
+#event-typer .typed-cursor{
+    animation: blink 0.3s linear infinite alternate-reverse;
+}
+.spons-logo{
+    margin: 8px;
+    max-width: 70%;
+}
+#register_btn{
+    display: block;
+    width: 100px;
+    height: 50px;
+    border: 2px double greenyellow;
+    background-color: transparent;
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: greenyellow;
+    margin-top: 20px;
+    outline: none;
+}
+#register_btn:hover,
+#register_btn:active,
+#resgiter_btn:focus{
+    border: 2px double greenyellow;
+    background-color: greenyellow;
+    color: #000;
+}
+/** Special Effect **/
+.distortion-effect{
+    position: relative;
+}
+.distortion-effect::after,
+.distortion-effect::before{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.distortion-effect::before{
+    left: 2px;
+    text-shadow: -1px 0 red;
+    clip: rect(0px, 900px, 0, 0);
+    animation: distortion-1 2s infinite cubic-bezier(1, 3.67, 0, -1.13) alternate-reverse;
+}
+.distortion-effect::after{
+    left: -1px;
+    text-shadow: 1px 0 blue;
+    clip: rect(0px, 900px, 0, 0);
+    animation: distortion-2 6s infinite cubic-bezier(0.64, 1.82, 0.06, -1.13) alternate-reverse;
+    animation-delay: 0.5s;
+}
+/** Animations **/
+@keyframes blink{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes rotation {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotation-reverse {
+    from{
+        transform: rotate(360deg);
+    }
+    to{
+        transform: rotate(0deg);
+    }
+}
+/** Randomly generated values, edit to create better distortion effect **/
+@keyframes distortion-1{
+    0% {
+        clip: rect(58px, 9999px, 3px, 0);
+    }
+    5% {
+        clip: rect(15px, 9999px, 9px, 0);
+    }
+    10% {
+        clip: rect(100px, 9999px, 44px, 0);
+    }
+    15% {
+        clip: rect(25px, 9999px, 40px, 0);
+    }
+    20% {
+        clip: rect(94px, 9999px, 14px, 0);
+    }
+    25% {
+        clip: rect(33px, 9999px, 63px, 0);
+    }
+    30% {
+        clip: rect(85px, 9999px, 55px, 0);
+    }
+    35% {
+        clip: rect(5px, 9999px, 96px, 0);
+    }
+    40% {
+        clip: rect(76px, 9999px, 37px, 0);
+    }
+    45% {
+        clip: rect(88px, 9999px, 44px, 0);
+    }
+    50% {
+        clip: rect(100px, 9999px, 88px, 0);
+    }
+    55% {
+        clip: rect(100px, 9999px, 12px, 0);
+    }
+    60% {
+        clip: rect(68px, 9999px, 23px, 0);
+    }
+    65% {
+        clip: rect(99px, 9999px, 18px, 0);
+    }
+    70% {
+        clip: rect(43px, 9999px, 81px, 0);
+    }
+    75% {
+        clip: rect(50px, 9999px, 57px, 0);
+    }
+    80% {
+        clip: rect(2px, 9999px, 72px, 0);
+    }
+    85% {
+        clip: rect(25px, 9999px, 79px, 0);
+    }
+    90% {
+        clip: rect(69px, 9999px, 75px, 0);
+    }
+    95% {
+        clip: rect(65px, 9999px, 16px, 0);
+    }
+    100% {
+        clip: rect(93px, 9999px, 77px, 0);
+    }
+}
+@keyframes distortion-2{
+    0% {
+        clip: rect(92px, 9999px, 44px, 0);
+        }
+    5% {
+        clip: rect(27px, 9999px, 19px, 0);
+    }
+    10% {
+        clip: rect(27px, 9999px, 93px, 0);
+    }
+    15% {
+        clip: rect(45px, 9999px, 42px, 0);
+    }
+    20% {
+        clip: rect(21px, 9999px, 28px, 0);
+    }
+    25% {
+        clip: rect(55px, 9999px, 87px, 0);
+    }
+    30% {
+        clip: rect(88px, 9999px, 30px, 0);
+    }
+    35% {
+        clip: rect(10px, 9999px, 44px, 0);
+    }
+    40% {
+        clip: rect(66px, 9999px, 85px, 0);
+    }
+    45% {
+        clip: rect(63px, 9999px, 16px, 0);
+    }
+    50% {
+        clip: rect(60px, 9999px, 26px, 0);
+    }
+    55% {
+        clip: rect(27px, 9999px, 90px, 0);
+    }
+    60% {
+        clip: rect(72px, 9999px, 21px, 0);
+    }
+    65% {
+        clip: rect(72px, 9999px, 37px, 0);
+    }
+    70% {
+        clip: rect(84px, 9999px, 54px, 0);
+    }
+    75% {
+        clip: rect(26px, 9999px, 19px, 0);
+    }
+    80% {
+        clip: rect(25px, 9999px, 49px, 0);
+    }
+    85% {
+        clip: rect(96px, 9999px, 29px, 0);
+    }
+    90% {
+        clip: rect(61px, 9999px, 38px, 0);
+    }
+    95% {
+        clip: rect(45px, 9999px, 16px, 0);
+    }
+    100% {
+        clip: rect(77px, 9999px, 96px, 0);
+    }
+}
