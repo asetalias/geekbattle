@@ -134,6 +134,7 @@ body{
     color: #fefeff;
     width: 1em;
     height: 1em;
+    z-index: 3;
 }
 #title-container .control-prev{
     left:-2em;
