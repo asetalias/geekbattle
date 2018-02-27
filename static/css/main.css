@@ -134,13 +134,14 @@ body{
     color: #fefeff;
     width: 1em;
     height: 1em;
+    font-size: 1.5em;
     z-index: 3;
 }
 #title-container .control-prev{
-    left:-2em;
+    left:-1em;
 }
 #title-container .control-next{
-    right: -2em;
+    right: -1.1em;
 }
 .slides{
     height: 6em;
